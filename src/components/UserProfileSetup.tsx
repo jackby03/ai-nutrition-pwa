@@ -105,17 +105,17 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Basic Information</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Basic Information</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
                 <input
                   type="number"
                   value={profileData.age}
                   onChange={(e) => updateField('age', e.target.value ? parseInt(e.target.value) : '')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-base sm:text-sm"
                   placeholder="25"
                 />
               </div>
@@ -125,7 +125,7 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
                 <select
                   value={profileData.sex}
                   onChange={(e) => updateField('sex', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-base sm:text-sm"
                 >
                   <option value="">Select...</option>
                   <option value="male">Male</option>
@@ -140,7 +140,7 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
                   type="number"
                   value={profileData.height}
                   onChange={(e) => updateField('height', e.target.value ? parseFloat(e.target.value) : '')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-base sm:text-sm"
                   placeholder="170"
                 />
               </div>
@@ -151,7 +151,7 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
                   type="number"
                   value={profileData.weight}
                   onChange={(e) => updateField('weight', e.target.value ? parseFloat(e.target.value) : '')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-base sm:text-sm"
                   placeholder="70"
                 />
               </div>
@@ -161,43 +161,46 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
 
       case 2:
         return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Activity & Goals</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Activity & Goals</h2>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Activity Level</label>
-              <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700 mb-3">Activity Level</label>
+              <div className="space-y-3">
                 {[
-                  { value: 'sedentary', label: 'Sedentary (little or no exercise)' },
-                  { value: 'light', label: 'Light (light exercise 1-3 days/week)' },
-                  { value: 'moderate', label: 'Moderate (moderate exercise 3-5 days/week)' },
-                  { value: 'active', label: 'Active (hard exercise 6-7 days/week)' },
-                  { value: 'very_active', label: 'Very Active (very hard exercise, physical job)' }
+                  { value: 'sedentary', label: 'Sedentary', desc: 'Little or no exercise' },
+                  { value: 'light', label: 'Light', desc: 'Light exercise 1-3 days/week' },
+                  { value: 'moderate', label: 'Moderate', desc: 'Moderate exercise 3-5 days/week' },
+                  { value: 'active', label: 'Active', desc: 'Hard exercise 6-7 days/week' },
+                  { value: 'very_active', label: 'Very Active', desc: 'Very hard exercise, physical job' }
                 ].map((option) => (
-                  <label key={option.value} className="flex items-center">
+                  <label key={option.value} className="flex items-start p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                     <input
                       type="radio"
                       value={option.value}
                       checked={profileData.activityLevel === option.value}
                       onChange={(e) => updateField('activityLevel', e.target.value)}
-                      className="mr-3 text-green-500"
+                      className="mr-3 mt-1 text-green-500"
                     />
-                    <span className="text-sm">{option.label}</span>
+                    <div>
+                      <span className="text-sm font-medium text-gray-900">{option.label}</span>
+                      <p className="text-xs text-gray-500 mt-1">{option.desc}</p>
+                    </div>
                   </label>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Goal</label>
-              <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700 mb-3">Goal</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { value: 'lose_weight', label: 'Lose Weight' },
-                  { value: 'maintain_weight', label: 'Maintain Weight' },
-                  { value: 'gain_weight', label: 'Gain Weight' },
-                  { value: 'gain_muscle', label: 'Gain Muscle' }
+                  { value: 'lose_weight', label: 'Lose Weight', icon: '📉' },
+                  { value: 'maintain_weight', label: 'Maintain Weight', icon: '⚖️' },
+                  { value: 'gain_weight', label: 'Gain Weight', icon: '📈' },
+                  { value: 'gain_muscle', label: 'Gain Muscle', icon: '💪' }
                 ].map((option) => (
-                  <label key={option.value} className="flex items-center">
+                  <label key={option.value} className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                     <input
                       type="radio"
                       value={option.value}
@@ -205,7 +208,8 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
                       onChange={(e) => updateField('goal', e.target.value)}
                       className="mr-3 text-green-500"
                     />
-                    <span className="text-sm">{option.label}</span>
+                    <span className="mr-2 text-lg">{option.icon}</span>
+                    <span className="text-sm font-medium">{option.label}</span>
                   </label>
                 ))}
               </div>
@@ -215,32 +219,32 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
 
       case 3:
         return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Dietary Preferences</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Dietary Preferences</h2>
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Diet Type</label>
               <select
                 value={profileData.dietType}
                 onChange={(e) => updateField('dietType', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-3 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-base sm:text-sm"
               >
                 <option value="">Select...</option>
-                <option value="omnivore">Omnivore</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="keto">Keto</option>
-                <option value="paleo">Paleo</option>
-                <option value="mediterranean">Mediterranean</option>
-                <option value="low_carb">Low Carb</option>
+                <option value="omnivore">🍽️ Omnivore</option>
+                <option value="vegetarian">🥗 Vegetarian</option>
+                <option value="vegan">🌱 Vegan</option>
+                <option value="keto">🥓 Keto</option>
+                <option value="paleo">🦴 Paleo</option>
+                <option value="mediterranean">🫒 Mediterranean</option>
+                <option value="low_carb">🥬 Low Carb</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Allergies (optional)</label>
-              <div className="grid grid-cols-2 gap-2">
+              <label className="block text-sm font-medium text-gray-700 mb-3">Allergies (optional)</label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {['Nuts', 'Dairy', 'Eggs', 'Shellfish', 'Soy', 'Gluten', 'Fish', 'Sesame'].map((allergy) => (
-                  <label key={allergy} className="flex items-center">
+                  <label key={allergy} className="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={profileData.allergies.includes(allergy)}
@@ -253,7 +257,30 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
                       }}
                       className="mr-2 text-green-500"
                     />
-                    <span className="text-sm">{allergy}</span>
+                    <span className="text-xs sm:text-sm">{allergy}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">Food Dislikes (optional)</label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {['Spicy Food', 'Sweet Food', 'Bitter Food', 'Seafood', 'Red Meat', 'Poultry'].map((dislike) => (
+                  <label key={dislike} className="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={profileData.dislikes.includes(dislike)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          updateField('dislikes', [...profileData.dislikes, dislike]);
+                        } else {
+                          updateField('dislikes', profileData.dislikes.filter(d => d !== dislike));
+                        }
+                      }}
+                      className="mr-2 text-green-500"
+                    />
+                    <span className="text-xs sm:text-sm">{dislike}</span>
                   </label>
                 ))}
               </div>
@@ -264,28 +291,40 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
       case 4:
         const estimatedCalories = calculateCalories();
         return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Summary</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Summary</h2>
             
-            <div className="bg-green-50 p-6 rounded-lg">
+            <div className="bg-green-50 p-4 sm:p-6 rounded-lg">
               <h3 className="text-lg font-semibold text-green-800 mb-4">Your Personalized Plan</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div className="space-y-2">
                   <p><strong>Daily Calories:</strong> {estimatedCalories}</p>
                   <p><strong>Goal:</strong> {profileData.goal.replace('_', ' ')}</p>
                   <p><strong>Diet Type:</strong> {profileData.dietType}</p>
                 </div>
-                <div>
+                <div className="space-y-2">
                   <p><strong>Activity Level:</strong> {profileData.activityLevel.replace('_', ' ')}</p>
                   {profileData.allergies.length > 0 && (
                     <p><strong>Allergies:</strong> {profileData.allergies.join(', ')}</p>
+                  )}
+                  {profileData.dislikes.length > 0 && (
+                    <p><strong>Dislikes:</strong> {profileData.dislikes.join(', ')}</p>
                   )}
                 </div>
               </div>
             </div>
 
-            <p className="text-gray-600 text-sm">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h4 className="font-medium text-blue-800 mb-2">What's Next?</h4>
+              <ul className="text-sm text-blue-700 space-y-1">
+                <li>✅ Get personalized meal recommendations</li>
+                <li>✅ Track your daily nutrition</li>
+                <li>✅ Achieve your health goals</li>
+              </ul>
+            </div>
+
+            <p className="text-gray-600 text-xs sm:text-sm">
               Based on this information, we'll provide personalized meal recommendations and nutrition tracking.
               You can always update your preferences later in your profile settings.
             </p>
@@ -298,38 +337,40 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-2xl mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-md p-8">
+    <div className="min-h-screen bg-gray-50 py-4 px-4 sm:py-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 lg:p-8">
           {/* Progress Bar */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-gray-600">Step {step} of 4</span>
-              <span className="text-sm font-medium text-gray-600">{Math.round((step / 4) * 100)}%</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-600">Step {step} of 4</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-600">{Math.round((step / 4) * 100)}%</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
               <div 
-                className="bg-green-500 h-2 rounded-full transition-all duration-300"
+                className="bg-green-500 h-2 sm:h-3 rounded-full transition-all duration-300"
                 style={{ width: `${(step / 4) * 100}%` }}
               ></div>
             </div>
           </div>
 
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Complete Your Profile</h1>
-            <p className="text-gray-600">Help us personalize your nutrition recommendations</p>
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">Complete Your Profile</h1>
+            <p className="text-sm sm:text-base text-gray-600">Help us personalize your nutrition recommendations</p>
           </div>
 
           {/* Form Content */}
-          {renderStep()}
+          <div className="min-h-[400px] sm:min-h-[450px]">
+            {renderStep()}
+          </div>
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6 sm:mt-8">
             <button
               onClick={prevStep}
               disabled={step === 1}
-              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto px-6 py-3 sm:py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               Previous
             </button>
@@ -337,7 +378,7 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
             {step < 4 ? (
               <button
                 onClick={nextStep}
-                className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors text-sm sm:text-base"
               >
                 Next
               </button>
@@ -345,7 +386,7 @@ const UserProfileSetup: React.FC<UserProfileSetupProps> = ({ userEmail }) => {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:opacity-50"
+                className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
                 {loading ? 'Saving...' : 'Complete Setup'}
               </button>
