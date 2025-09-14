@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMealRecommendations } from '../lib/ai';
+import { getMealRecommendations } from 'lib/ai';
 
 const MealRecommendation: React.FC = () => {
     const [meals, setMeals] = useState<string[]>([]);

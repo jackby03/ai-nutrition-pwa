@@ -16,7 +16,15 @@
     "tailwindcss": "latest",
     "postcss": "latest",
     "autoprefixer": "latest",
-    "@auth0/nextjs-auth0": "latest"
+    "next-pwa": "^5.6.0",
+    "next-auth": "latest",
+    "prisma": "latest",
+    "@prisma/client": "latest",
+    "openai": "latest",
+    "@radix-ui/react-icons": "latest",
+    "class-variance-authority": "latest",
+    "lucide-react": "latest",
+    "tailwind-merge": "latest"
   },
   "devDependencies": {
     "@types/react": "latest",
