@@ -10,12 +10,39 @@ generator client {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  name        String?
-  email       String   @unique
-  password    String
-  preferences Json?
-  mealPlans   MealPlan[]
+  id              Int      @id @default(autoincrement())
+  name            String?
+  email           String   @unique
+  password        String?  // Optional for OAuth users
+  
+  // Profile completion
+  profileCompleted Boolean @default(false)
+  
+  // Basic demographics
+  age             Int?
+  sex             String?  // "male", "female", "other"
+  height          Float?   // in cm
+  weight          Float?   // in kg
+  
+  // Activity and goals
+  activityLevel   String?  // "sedentary", "light", "moderate", "active", "very_active"
+  goal            String?  // "lose_weight", "maintain_weight", "gain_weight", "gain_muscle"
+  
+  // Dietary preferences and restrictions
+  dietType        String?  // "omnivore", "vegetarian", "vegan", "keto", "paleo", etc.
+  allergies       String?  // JSON array as string
+  dislikes        String?  // JSON array as string
+  
+  // Health metrics
+  targetCalories  Int?
+  targetProtein   Float?
+  targetCarbs     Float?
+  targetFat       Float?
+  
+  preferences     String?  // Additional JSON preferences
+  mealPlans       MealPlan[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Food {
@@ -23,7 +50,7 @@ model Food {
   name      String
   category  String
   calories  Int
-  macros    Json?
+  macros    String? // JSON stored as string for SQLite
 }
 
 model MealPlan {
@@ -31,5 +58,5 @@ model MealPlan {
   user      User   @relation(fields: [userId], references: [id])
   userId    Int
   date      DateTime
-  meals     Json
+  meals     String // JSON stored as string for SQLite
 }
