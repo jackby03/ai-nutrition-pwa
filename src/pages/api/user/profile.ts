@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const session = await unstable_getServerSession(req, res, authOptions);
-    
+
     if (!session?.user?.email) {
       return res.status(401).json({ message: 'Unauthorized - Please log in' });
     }
@@ -50,17 +50,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       profileCompleted: true
     };
 
-    // Find or create user - store profile data in preferences field for now
+    // Find or create user - store profile data in specific columns AND preferences for backup
     const user = await prisma.user.upsert({
       where: { email: session.user.email },
       update: {
         name: session.user.name,
+        age: parseInt(age),
+        sex,
+        height: parseFloat(height),
+        weight: parseFloat(weight),
+        activityLevel,
+        goal,
+        dietType,
+        allergies: Array.isArray(allergies) ? JSON.stringify(allergies) : allergies,
+        dislikes: Array.isArray(dislikes) ? JSON.stringify(dislikes) : dislikes,
+        targetCalories: parseInt(targetCalories),
+        targetProtein: parseFloat(targetProtein),
+        targetCarbs: parseFloat(targetCarbs),
+        targetFat: parseFloat(targetFat),
+        profileCompleted: true,
         preferences: JSON.stringify(profileData)
       },
       create: {
         email: session.user.email,
         name: session.user.name || '',
         password: '', // OAuth users don't need password
+        age: parseInt(age),
+        sex,
+        height: parseFloat(height),
+        weight: parseFloat(weight),
+        activityLevel,
+        goal,
+        dietType,
+        allergies: Array.isArray(allergies) ? JSON.stringify(allergies) : allergies,
+        dislikes: Array.isArray(dislikes) ? JSON.stringify(dislikes) : dislikes,
+        targetCalories: parseInt(targetCalories),
+        targetProtein: parseFloat(targetProtein),
+        targetCarbs: parseFloat(targetCarbs),
+        targetFat: parseFloat(targetFat),
+        profileCompleted: true,
         preferences: JSON.stringify(profileData)
       }
     });
@@ -68,8 +96,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json({ message: 'Profile updated successfully', user });
   } catch (error) {
     console.error('Error updating user profile:', error);
-    res.status(500).json({ 
-      message: 'Internal server error', 
+    res.status(500).json({
+      message: 'Internal server error',
       error: error instanceof Error ? error.message : 'Unknown error'
     });
   }

@@ -25,7 +25,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userData }) => {
                                 Welcome back, {userData.name || userData.email?.split('@')[0] || 'User'}! 👋
                             </h1>
                             <p className="text-sm sm:text-base text-gray-600">
-                                Here's your personalized nutrition dashboard
+                                Here's your personalized nutrition dashboard. <Link href="/profile" className="text-blue-600 hover:text-blue-800 underline">Edit Profile</Link>
                             </p>
                         </div>
 

@@ -26,8 +26,11 @@ const Navbar: React.FC = () => {
                                 <Link href="/dashboard" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
                                     Dashboard
                                 </Link>
-                                <Link href="/quiz" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
-                                    Quiz
+                                <Link href="/profile" className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                                    Profile
+                                </Link>
+                                <Link href="/quiz" className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+                                    Daily Quiz
                                 </Link>
                                 <div className="flex items-center space-x-4">
                                     <span className="text-sm text-gray-600">
@@ -86,6 +89,13 @@ const Navbar: React.FC = () => {
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         📊 Dashboard
+                                    </Link>
+                                    <Link
+                                        href="/profile"
+                                        className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-md transition-colors"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        👤 Profile
                                     </Link>
                                     <Link
                                         href="/quiz"
