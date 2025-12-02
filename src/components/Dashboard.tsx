@@ -1,6 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from '../styles/dashboard.module.css';
-import MealRecommendation from './MealRecommendation';
+import FoodPlanManager from './FoodPlanManager';
 
 interface User {
     name?: string | null;
@@ -27,7 +28,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userData }) => {
                                 Here's your personalized nutrition dashboard
                             </p>
                         </div>
-                        
+
                         {/* Quick Stats - Mobile Scrollable */}
                         <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-2 sm:pb-0">
                             <div className="flex-shrink-0 bg-green-50 p-3 sm:p-4 rounded-lg text-center min-w-[80px]">
@@ -48,69 +49,12 @@ const Dashboard: React.FC<DashboardProps> = ({ userData }) => {
 
                 {/* Main Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-                    {/* Main Meal Plan - Takes full width on mobile, 2 cols on desktop */}
-                    <div className="lg:col-span-2">
-                        <MealRecommendation />
+                    {/* Main Meal Plan - Takes full width */}
+                    <div className="lg:col-span-3">
+                        <FoodPlanManager />
                     </div>
-                    
-                    {/* Sidebar - Stack below on mobile */}
-                    <div className="space-y-4 sm:space-y-6">
-                        {/* Today's Summary */}
-                        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">Today's Summary</h3>
-                            <div className="space-y-3 sm:space-y-4">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-sm text-gray-600">Calories</span>
-                                    <span className="font-medium">0 / 2000</span>
-                                </div>
-                                <div className="w-full bg-gray-200 rounded-full h-2">
-                                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '0%' }}></div>
-                                </div>
-                                
-                                <div className="grid grid-cols-3 gap-2 text-center text-xs sm:text-sm">
-                                    <div>
-                                        <div className="font-medium text-orange-600">Protein</div>
-                                        <div className="text-gray-600">0g</div>
-                                    </div>
-                                    <div>
-                                        <div className="font-medium text-blue-600">Carbs</div>
-                                        <div className="text-gray-600">0g</div>
-                                    </div>
-                                    <div>
-                                        <div className="font-medium text-yellow-600">Fat</div>
-                                        <div className="text-gray-600">0g</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        {/* Quick Actions */}
-                        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">Quick Actions</h3>
-                            <div className="space-y-2 sm:space-y-3">
-                                <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 sm:py-3 px-4 rounded-md transition-colors text-sm sm:text-base">
-                                    📝 Log Food
-                                </button>
-                                <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 sm:py-3 px-4 rounded-md transition-colors text-sm sm:text-base">
-                                    🔄 New Meal Plan
-                                </button>
-                                <button className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 sm:py-3 px-4 rounded-md transition-colors text-sm sm:text-base">
-                                    ⚙️ Settings
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Recent Activity */}
-                        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
-                            <div className="space-y-3">
-                                <div className="text-sm text-gray-600 text-center py-4">
-                                    No recent activity yet.<br />
-                                    Start logging your meals! 🍽️
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {/* Sidebar moved inside FoodPlanManager */}
                 </div>
             </div>
         </div>

@@ -26,6 +26,9 @@ const Navbar: React.FC = () => {
                                 <Link href="/dashboard" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
                                     Dashboard
                                 </Link>
+                                <Link href="/quiz" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
+                                    Quiz
+                                </Link>
                                 <div className="flex items-center space-x-4">
                                     <span className="text-sm text-gray-600">
                                         Welcome, {session.user?.name || session.user?.email?.split('@')[0]}
@@ -77,12 +80,19 @@ const Navbar: React.FC = () => {
                                     <div className="px-3 py-2 text-sm text-gray-600 border-b border-gray-100 mb-2">
                                         Welcome, {session.user?.name || session.user?.email?.split('@')[0]}
                                     </div>
-                                    <Link 
-                                        href="/dashboard" 
+                                    <Link
+                                        href="/dashboard"
                                         className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-md transition-colors"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         📊 Dashboard
+                                    </Link>
+                                    <Link
+                                        href="/quiz"
+                                        className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-md transition-colors"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        🎯 Quiz Challenge
                                     </Link>
                                     <button
                                         onClick={() => {
@@ -96,15 +106,15 @@ const Navbar: React.FC = () => {
                                 </>
                             ) : (
                                 <>
-                                    <Link 
-                                        href="/auth/login" 
+                                    <Link
+                                        href="/auth/login"
                                         className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-gray-50 rounded-md transition-colors"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         🔐 Login
                                     </Link>
-                                    <Link 
-                                        href="/auth/register" 
+                                    <Link
+                                        href="/auth/register"
                                         className="block px-3 py-3 text-base font-medium bg-green-500 text-white hover:bg-green-600 rounded-md transition-colors"
                                         onClick={() => setIsMenuOpen(false)}
                                     >

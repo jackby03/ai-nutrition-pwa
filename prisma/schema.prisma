@@ -41,6 +41,8 @@ model User {
   
   preferences     String?  // Additional JSON preferences
   mealPlans       MealPlan[]
+  quizAttempts    QuizAttempt[]
+  plans           Plan[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
@@ -59,4 +61,80 @@ model MealPlan {
   userId    Int
   date      DateTime
   meals     String // JSON stored as string for SQLite
+}
+
+model QuizCard {
+  id          Int      @id @default(autoincrement())
+  type        String   // "truth" or "dare"
+  question    String   // The question or challenge text
+  difficulty  String   // "easy", "medium", "hard"
+  category    String   // "nutrition_basics", "healthy_habits", "food_facts", etc.
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  attempts    QuizAttempt[]
+}
+
+model QuizAttempt {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  card        QuizCard @relation(fields: [cardId], references: [id])
+  cardId      Int
+  completed   Boolean  @default(false)
+  completedAt DateTime @default(now())
+  
+  @@index([userId, completedAt])
+}
+
+model Plan {
+  id              Int        @id @default(autoincrement())
+  user            User       @relation(fields: [userId], references: [id])
+  userId          Int
+  name            String     // e.g., "Weekly Plan - Dec 2"
+  description     String?    // AI-generated summary
+  targetCalories  Int
+  targetProtein   Float
+  targetCarbs     Float
+  targetFat       Float
+  isActive        Boolean    @default(true)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  foodItems       FoodItem[]
+  chatMessages    ChatMessage[]
+  
+  @@index([userId, isActive])
+}
+
+model FoodItem {
+  id              Int      @id @default(autoincrement())
+  plan            Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  planId          Int
+  mealType        String   // "breakfast", "lunch", "dinner", "snack"
+  name            String   // "Grilled Chicken Breast"
+  portion         String   // "150g" or "1 cup"
+  calories        Int
+  protein         Float
+  carbs           Float
+  fat             Float
+  notes           String?  // Preparation tips, alternatives
+  isConsumed      Boolean  @default(false)
+  consumedAt      DateTime?
+  order           Int      // Display order within meal type
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([planId, mealType])
+}
+
+model ChatMessage {
+  id          Int      @id @default(autoincrement())
+  plan        Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  planId      Int
+  role        String   // "user" or "assistant"
+  content     String   // Message text
+  action      String?  // "add_food", "remove_food", "update_portion", etc.
+  metadata    String?  // JSON with action details
+  createdAt   DateTime @default(now())
+  
+  @@index([planId, createdAt])
 }
